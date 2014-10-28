@@ -164,6 +164,9 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //TODO
+	//1st case(no children): return null
+	//2nd case(1 child): return address of child
+	//3rd case(2 children): find max in left sub tree, call remove again.
   return NULL;
 }
 
