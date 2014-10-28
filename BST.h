@@ -114,6 +114,14 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
+
+	if(keyExists(k) == false) {
+		std::string findException = "The key " + k; 
+		findException += " does not exist."; 
+		throw std::string(findException);
+
+	}
+
   T fakeT;
   return fakeT;
 }
@@ -121,7 +129,7 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
+
   return false;
 }
 
