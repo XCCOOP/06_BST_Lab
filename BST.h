@@ -2,205 +2,279 @@
 //Author: Bo Brinkman
 //Date: 2013/10/01
 
-#include "SSet.h"
+ //Author: Nick Cooperrider
+ //Date: 12/10/2014
+ //All code written by myself with examples taken from class.
 
-template <class Key, class T>
-class Node {
-public:
-  Key k;
-  T data;
-  Node* left;
-  Node* right;
-};
-
-template <class Key, class T>
-class BST : public SSet <Key,T> {
+ #include "SSet.h"
+ 
+ template <class Key, class T>
+ class Node {
  public:
-  BST();
-  ~BST();
-  
-  //Return the number of items currently in the SSet
-  virtual unsigned long size();
-
-  //Add a new item, x, with Key k.
-  // If an item with Key k already exists, overwrite it
-  virtual void add(Key k, T x);
-
-  //Remove the item with Key k. If there is no such item, do nothing.
-  virtual void remove(Key k);
-
-  //Return the item with Key k. 
-  // If there is no such item, throw an exception.
-  virtual T find(Key k);
-  //Return true if there is an item with Key k in the table. If not,
-  // return false
-  virtual bool keyExists(Key k);
-
-  //If there is a key in the set that is > k,
-  // return the first such key. If not, return k
-  virtual Key next(Key k);
-  //If there is a key in the set that is < k,
-  // return the first such key. If not, return k
-  virtual Key prev(Key k);
-
-private:
-  Node<Key,T>* root;
-
-  virtual unsigned long size(Node<Key,T>* r);
-  //These are the recursive versions of each of your methods.
-  // You should return the address of the new root node, whether
-  // or not the root node changes.
-  virtual Node<Key,T>* add(Key k, T x, Node<Key,T>* r);
-  virtual Node<Key,T>* remove(Key k, Node<Key,T>* r);
-
-  //This one returns the address of the found node, NULL
-  // if not found
-  virtual Node<Key,T>* find(Key k, Node<Key,T>* r);
-
-  //Find the item in the sub-tree rooted at r which has the smallest key
-  virtual Node<Key,T>* min(Node<Key,T>* r);
-
-  //Find the item in the sub-tree rooted at r which has the largest key
-  virtual Node<Key,T>* max(Node<Key,T>* r);
-
-  //Find the next/prev node, and return its address
-  virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
-  virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
-
-};
-
-// ** Start of BST.ipp **
-
-#define NULL 0
-#include <string>
-
-template <class Key, class T>
-BST<Key,T>::BST(){
-	k = Key;
-	data = T;
-    root = NULL;
-    left = NULL;
-    right = NULL;
-}
-
-template <class Key, class T>
-BST<Key,T>::~BST(){
-  //TODO
-}
-  
-//Return the number of items currently in the SSet
-template <class Key, class T>
-unsigned long BST<Key,T>::size(){
-	return size(r);
-}
-
-template <class Key, class T>
-unsigned long BST<Key,T>::size(Node<Key,T>* r){
-	if(r = NULL) {
-	  return 0;
-	} else {
-	  return 1 + size(r -> left) + size(r -> right);
-	}
-}
-
-//Add a new item, x, with Key k.
-// If an item with Key k already exists, overwrite it
-template <class Key, class T>
-void BST<Key,T>::add(Key k, T x){
-	root = add(k, x, root);
-}
-
-//Remove the item with Key k. If there is no such item, do nothing.
-template <class Key, class T>
-void BST<Key,T>::remove(Key k){
-  //TODO
-}
-
-//Return the item with Key k. 
-// If there is no such item, throw an exception.
-template <class Key, class T>
-T BST<Key,T>::find(Key k){
-
-	if(keyExists(k) == false) {
-		std::string findException = "The key " + k; 
-		findException += " does not exist."; 
-		throw std::string(findException);
-	}
-
-  T fakeT;
-  return fakeT;
-}
-//Return true if there is an item with Key k in the table. If not,
-// return false
-template <class Key, class T>
-bool BST<Key,T>::keyExists(Key k){
-
-  return false;
-}
-
-//If there is a key in the set that is > k,
-// return the first such key. If not, return k
-template <class Key, class T>
-Key BST<Key,T>::next(Key k){
-  //TODO
-  Key fakeKey;
-  return fakeKey;
-}
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-
-  return NULL;
-}
-
-//If there is a key in the set that is < k,
-// return the first such key. If not, return k
-template <class Key, class T>
-Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
-}
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
+ 	Key k;
+ 	T data;
+ 	Node* left;
+ 	Node* right;
+ };
+ 
+ template <class Key, class T>
+ class BST : public SSet <Key,T> {
+ public:
+ 	BST();
+ 	~BST();
+ 
+ 	//Return the number of items currently in the SSet
+ 	virtual unsigned long size();
+ 
+ 	//Add a new item, x, with Key k.
+ 	// If an item with Key k already exists, overwrite it
+ 	virtual void add(Key k, T x);
+ 
+ 	//Remove the item with Key k. If there is no such item, do nothing.
+ 	virtual void remove(Key k);
+ 
+ 	//Return the item with Key k. 
+ 	// If there is no such item, throw an exception.
+ 	virtual T find(Key k);
+ 	//Return true if there is an item with Key k in the table. If not,
+ 	// return false
+ 	virtual bool keyExists(Key k);
+ 
+ 	//If there is a key in the set that is > k,
+ 	// return the first such key. If not, return k
+ 	virtual Key next(Key k);
+ 	//If there is a key in the set that is < k,
+ 	// return the first such key. If not, return k
+ 	virtual Key prev(Key k);
+ 
+ private:
+ 	Node<Key,T>* root;
+ 
+ 	virtual unsigned long size(Node<Key,T>* r);
+ 	//These are the recursive versions of each of your methods.
+ 	// You should return the address of the new root node, whether
+ 	// or not the root node changes.
+ 	virtual Node<Key,T>* add(Key k, T x, Node<Key,T>* r);
+ 	virtual Node<Key,T>* remove(Key k, Node<Key,T>* r);
+ 
+ 	//This one returns the address of the found node, NULL
+ 	// if not found
+ 	virtual Node<Key,T>* find(Key k, Node<Key,T>* r);
+ 
+ 	//Find the item in the sub-tree rooted at r which has the smallest key
+ 	virtual Node<Key,T>* min(Node<Key,T>* r);
+ 
+ 	//Find the item in the sub-tree rooted at r which has the largest key
+ 	virtual Node<Key,T>* max(Node<Key,T>* r);
+ 
+ 	//Find the next/prev node, and return its address
+ 	virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
+ 	virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
+ 
+ };
+ //Start of .ipp
+ 
 
 
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
+ #define NULL 0
+ #include <string>
+ 
+ template <class Key, class T>
+ BST<Key,T>::BST(){
+ 	root = NULL;
+ }
+ 
+ template <class Key, class T>
+ BST<Key,T>::~BST(){
+	 while (root != NULL) {
+		 remove(root->k);
+	 }
+ }
+ 
+ template <class Key, class T>
+ unsigned long BST<Key,T>::size(){
+ 	return size(root);
+ }
+ 
+ template <class Key, class T>
+ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
-	//1st case(no children): return null
-	//2nd case(1 child): return address of child
-	//3rd case(2 children): find max in left sub tree, call remove again.
-  return NULL;
-}
+	 if(r == NULL) {
+		 return 0;
+	 } else {
+		 return 1 + size(r->left) + size(r->right);
+	 }
+ }
+ 
+ template <class Key, class T>
+ void BST<Key,T>::add(Key k, T x){
+ 	root = add(k, x, root);
+ }
+ 
+ template <class Key, class T>
+ void BST<Key,T>::remove(Key k){
+ 	root = remove(k, root);
+ }
+ 
+ template <class Key, class T>
+ T BST<Key,T>::find(Key k){
+ 	Node<Key,T>* n = find(k, root);
 
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
+ 	if(n == NULL) {
+ 		throw std::string("That is not an item!");
+ 		return NULL;
+ 	}
 
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-	if(r == null) {
-		return 
-	} else if( r -> right == null) {
-		return r;
-	}
-  return NULL;
-}
+ 	return n->data;
+ }
+ 
+ template <class Key, class T>
+ bool BST<Key,T>::keyExists(Key k){
 
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+	 if(find(k, root) == NULL) {
+		 return false;
+	 } else {
+		 return true;
+	 }
+ }
+ 
+ template <class Key, class T>
+ Key BST<Key,T>::next(Key k){
+
+	 Node<Key,T>* n = next(k, root);
+
+	 if(n != NULL) {
+		 return n->k;
+	 }else {
+		 return k;
+	 }
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
+
+	 if(r == NULL) {
+		 return NULL;
+	 }else if(k < r->k) {
+		 if(r->left == NULL || max(r->left)->k <= k) {
+			 return r;
+		 }else {
+			 return next(k, r->left);
+		 }
+	 }else {
+		 return next(k, r->right);
+	 }
+ }
+ 
+ template <class Key, class T>
+ Key BST<Key,T>::prev(Key k){
+	 
+	 Node<Key,T>* n = prev(k, root);
+
+	 if(n != NULL) {
+		 return n->k;
+	 }else {
+		 return k;
+	 }
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
+	 
+	 if(r == NULL) {
+		 return NULL;
+	 }else if(k > r->k) {
+		 if(r->right == NULL || r->right->k >= k) {
+			 return r;
+		 }else {
+			 return prev(k, r->right);
+		 }
+	 }else {
+		 return prev(k, r->left);
+	 }
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
+	 
+	 if(r == NULL) {
+		 Node<Key, T>* n = new Node<Key, T>();
+ 		 n->k = k;
+ 		 n->data = x;
+ 		 n->left = NULL;
+ 		 n->right = NULL;
+ 		 return n;
+	 }else if(k == r->k) {
+		 r->data = x;
+	 }else if(k > r->k) {
+		 r->right = add(k,x,r->right);
+	 }else {
+		 r->left = add(k,x,r->left);
+	 }
+ 	 return r;
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
+	 
+	 if(k == r->k) {
+		 if(r->right == NULL && r->left == NULL) {
+			 delete r;
+ 			 return NULL;
+		 }else if(r->right == NULL && r->left != NULL) {
+ 			 Node<Key, T>* n = r->left;
+ 			 delete r;
+ 			 return n;
+ 		 }else if(r->right != NULL && r->left == NULL) {
+ 			 Node<Key, T>* n = r->right;
+ 			 delete r;
+ 			 return n;
+ 		 }else {
+ 			 Node<Key, T>* n = min(r->right);
+ 			 r->k = n->k;
+ 			 r->data = n->data;
+ 			 remove(n->k, n);
+ 			 return r;
+ 		 }
+ 	 }else if(r->k > k) {
+ 		 r->left = remove(k, r->left);
+ 		 return r;
+ 	 }else {
+ 		 r->right = remove(k, r->right);
+ 		 return r;
+ 	 }
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
+ 	
+	 if(r == NULL) {
+		 return NULL;
+	 }else if(k == r->k) { 
+ 		 return r;
+	 }else if(k > r->k) {
+		 return find(k, r->right);
+	 }else {
+ 		 return find(k, r->left);
+	 }
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
+
+	 if(r->right == NULL) {
+		 return r;
+	 }else {
+		 return max(r->right);
+	 }
+ }
+ 
+ template <class Key, class T>
+ Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
+
+	 if(r->left == NULL) {
+		 return r;
+	 }else {
+		 return min(r->left);
+	 }
 }
